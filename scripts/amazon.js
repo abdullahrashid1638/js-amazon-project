@@ -1,4 +1,4 @@
-import { cart } from "../data/cart.js";
+import { cart, addToCart } from "../data/cart.js";
 import { products } from "../data/products.js";
 
 let productsHTML = "";
@@ -60,6 +60,39 @@ products.forEach((product) => {
 
 document.querySelector(".js-products-grid").innerHTML = productsHTML;
 
+function updateCartQuantity() {
+  let cartQuantity = 0;
+
+  cart.forEach((cartItem) => {
+    cartQuantity += cartItem.quantity;
+  });
+
+  document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
+}
+
+function showMessage(addedMessageTimeoutId, productId) {
+  document
+    .querySelector(`.js-added-to-cart-${productId}`)
+    .classList.add("show-added-to-cart-message");
+
+  setTimeout(() => {
+    // Check if a previous timeoutId exists. If it does,
+    // we will stop it.
+    if (addedMessageTimeoutId) {
+      clearTimeout(addedMessageTimeoutId);
+    }
+
+    const timeoutId = setTimeout(() => {
+      document
+        .querySelector(`.js-added-to-cart-${productId}`)
+        .classList.remove("show-added-to-cart-message");
+    }, 2000);
+
+    // Save the timeoutId so we can stop it later.
+    addedMessageTimeoutId = timeoutId;
+  });
+}
+
 document.querySelectorAll(".js-add-to-cart").forEach((button) => {
   // This solution uses a feature of JavaScript called a
   // closure. Each time we run the loop, it will create
@@ -82,50 +115,8 @@ document.querySelectorAll(".js-add-to-cart").forEach((button) => {
 
   button.addEventListener("click", () => {
     const { productId } = button.dataset;
-
-    let matchingItem;
-
-    cart.forEach((item) => {
-      if (productId === item.productId) {
-        matchingItem = item;
-      }
-    });
-
-    if (matchingItem) {
-      matchingItem.quantity += Number(
-        document.querySelector(`.js-quantity-selector-${productId}`).value
-      );
-    } else {
-      cart.push({ productId, quantity: 1 });
-    }
-
-    let cartQuantity = 0;
-
-    cart.forEach((item) => {
-      cartQuantity += item.quantity;
-    });
-
-    document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
-
-    document
-      .querySelector(`.js-added-to-cart-${productId}`)
-      .classList.add("show-added-to-cart-message");
-
-    setTimeout(() => {
-      // Check if a previous timeoutId exists. If it does,
-      // we will stop it.
-      if (addedMessageTimeoutId) {
-        clearTimeout(addedMessageTimeoutId);
-      }
-
-      const timeoutId = setTimeout(() => {
-        document
-          .querySelector(`.js-added-to-cart-${productId}`)
-          .classList.remove("show-added-to-cart-message");
-      }, 2000);
-
-      // Save the timeoutId so we can stop it later.
-      addedMessageTimeoutId = timeoutId;
-    });
+    addToCart(productId);
+    updateCartQuantity();
+    showMessage(addedMessageTimeoutId, productId);
   });
 });
