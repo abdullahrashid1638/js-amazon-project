@@ -90,7 +90,7 @@ export function renderOrderSummary() {
       const priceString =
         deliveryOption.priceCents === 0
           ? "FREE"
-          : `${formatCurrency(deliveryOption.priceCents)} -`;
+          : `$${formatCurrency(deliveryOption.priceCents)} -`;
 
       const isChecked = deliveryOption.id === cartItem.deliveryOptionId;
 
@@ -156,12 +156,10 @@ export function renderOrderSummary() {
     }
 
     updateQuantity(productId, newQuantity);
-    const quantityLabel = document.querySelector(
-      `.js-quantity-label-${productId}`
-    );
-    quantityLabel.innerHTML = newQuantity;
 
-    updateCartQuantity();
+    renderCheckoutHeader();
+    renderOrderSummary();
+    renderPaymentSummary();
   }
 
   document.querySelectorAll(".js-save-quantity-link").forEach((link) => {

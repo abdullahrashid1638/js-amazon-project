@@ -48,4 +48,8 @@ export function calculateDeliveryDate(deliveryOption) {
       // remainingDays = remainingDays - 1;
     }
   }
+
+  deliveryDate = deliveryDate.format("dddd MMMM D");
+
+  return deliveryDate;
 }
