@@ -92,7 +92,7 @@ export function updateDeliveryOption(productId, deliveryOptionId) {
     }
   });
 
-  if (!matchingItem) {
+  if (!matchingItem || deliveryOptionId !== "1" && deliveryOptionId !== "2" && deliveryOptionId !== "3") {
     return;
   }
 
