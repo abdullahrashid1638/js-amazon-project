@@ -1,4 +1,4 @@
-class Cart {
+export class Cart {
   cartItems;
   #localStorageKey;
 
@@ -112,9 +112,4 @@ class Cart {
   }
 }
 
-const cart = new Cart("cart-oop");
-const businessCart = new Cart("cart-business");
-
-console.log(cart);
-console.log(businessCart);
-console.log(cart instanceof Cart);
+export const cart = new Cart("cart-oop");
