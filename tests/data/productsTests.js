@@ -1,5 +1,5 @@
 import { getProduct } from "../../data/products.js";
-import {Product, Clothing, Appliance} from '../../data/products.js';
+import { Product, Clothing, Appliance } from '../../data/products.js';
 
 describe("test suite: getProduct()", () => {
   it("returns the product with the given id", () => {
