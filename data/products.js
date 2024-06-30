@@ -620,4 +620,3 @@ export const products = [
   if (productDetails.type === "appliance") return new Appliance(productDetails);
   return new Product(productDetails);
 });
-
