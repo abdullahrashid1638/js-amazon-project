@@ -1,10 +1,10 @@
 import { getProduct } from "../../data/products.js";
 import { Product, Clothing, Appliance } from '../../data/products.js';
-import { loadProducts } from "../../data/products.js";
+import { loadProductsFetch } from "../../data/products.js";
 
 describe("test suite: getProduct()", () => {
   beforeAll((done) => {
-    loadProducts(() => {
+    loadProductsFetch().then(() => {
       done();
     });
   });
