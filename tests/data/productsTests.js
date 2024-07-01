@@ -1,7 +1,14 @@
 import { getProduct } from "../../data/products.js";
 import { Product, Clothing, Appliance } from '../../data/products.js';
+import { loadProducts } from "../../data/products.js";
 
 describe("test suite: getProduct()", () => {
+  beforeAll((done) => {
+    loadProducts(() => {
+      done();
+    });
+  });
+
   it("returns the product with the given id", () => {
     const product = getProduct("e43638ce-6aa0-4b85-b27f-e1d07eb678c6");
 
