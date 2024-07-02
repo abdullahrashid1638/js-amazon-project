@@ -131,5 +131,8 @@ fetch("https://amazon.com")
   })
   .then((data) => {
     console.log(data);
+  })
+  .catch((err) => {
+    console.log("CORS error. Your request was blocked by backend");
   });
 */
