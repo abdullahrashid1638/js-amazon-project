@@ -75,3 +75,32 @@ loadProducts(() => {
   });
 });
 */
+
+/*
+const xhr = new XMLHttpRequest(); // Create the request
+xhr.addEventListener("load", () => { // Add event listner to the request
+  console.log(xhr.response);
+});
+xhr.open("GET", "https://supersimplebackend.dev/greeting"); // Open the request with request type and URL
+xhr.send(); // Send the request
+*/
+
+/*
+fetch("https://supersimplebackend.dev/greeting")
+  .then((response) => {
+    return response.text();
+  })
+  .then((greeting) => {
+    console.log(greeting);
+  });
+*/
+
+/*
+async function getGreetings () {
+  const response = await fetch("https://supersimplebackend.dev/greeting");
+  const greetings = await response.text();
+  console.log(greetings);
+}
+
+getGreetings();
+*/
