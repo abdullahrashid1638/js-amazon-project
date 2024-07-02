@@ -123,3 +123,13 @@ async function sendJSON () {
 
 sendJSON();
 */
+
+/*
+fetch("https://amazon.com")
+  .then((response) => {
+    return response.json();
+  })
+  .then((data) => {
+    console.log(data);
+  });
+*/
