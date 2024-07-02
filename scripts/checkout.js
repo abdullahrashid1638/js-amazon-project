@@ -104,3 +104,22 @@ async function getGreetings () {
 
 getGreetings();
 */
+
+/*
+async function sendJSON () {
+  const postRequest = await fetch("https://supersimplebackend.dev/greeting", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: "Abdullah",
+    }),
+  });
+
+  const response = await postRequest.text();
+  console.log(response);
+}
+
+sendJSON();
+*/
