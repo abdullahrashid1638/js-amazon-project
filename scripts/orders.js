@@ -43,11 +43,10 @@ async function loadPage () {
         </div>
 
         <div class="product-actions">
-          <a href="tracking.html">
-            <button class="track-package-button button-secondary">
+            <button class="track-package-button button-secondary js-track-package"
+            data-order-id="${order.id}" data-product-id="${product.productId}">
               Track package
             </button>
-          </a>
         </div>
       `
     });
@@ -100,6 +99,27 @@ async function loadPage () {
       }, 1000);
     });
   });
+
+  document.querySelectorAll(".js-track-package").forEach((button) => {
+    const orderId = button.dataset.orderId;
+    const productId = button.dataset.productId;
+  
+    button.addEventListener("click", (event) => {
+      event.preventDefault();
+      // Construct the URL with parameters
+      const url = `tracking.html?orderId=${orderId}&productId=${productId}`;
+  
+      // Open the URL in a new tab (user preference)
+      window.open(url, '_blank');
+  
+      // Alternative (open in current window, if preferred)
+      // window.location.href = url;
+  
+      // Optional: Prevent default link behavior (if using an anchor tag)
+      // event.preventDefault();  // Uncomment if using an anchor tag
+    });
+  });
+  
 }
 
 loadPage();
