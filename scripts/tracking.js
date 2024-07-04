@@ -20,11 +20,24 @@ async function loadPage() {
   // Get additional details about the product like
   // the estimated delivery time.
   let productDetails;
+
   order.products.forEach((details) => {
     if (details.productId === product.id) {
       productDetails = details;
     }
   });
+
+  function calculateDeliveryProgress () {
+    const currentTime = new Date().getTime();
+    const orderTime = new Date(order.orderTime).getTime();
+    const deliveryTime = new Date(productDetails.estimatedDeliveryTime).getTime();
+
+    const deliveryProgress = ((currentTime - orderTime) / (deliveryTime - orderTime)) * 100;
+
+    return deliveryProgress;
+  }
+
+  const deliveryProgress = calculateDeliveryProgress();
 
   const trackingHTML = `
     <a class="back-to-orders-link link-primary" href="orders.html">
@@ -43,18 +56,21 @@ async function loadPage() {
     </div>
     <img class="product-image" src="${product.image}">
     <div class="progress-labels-container">
-      <div class="progress-label">
+      <div class="progress-label 
+      ${deliveryProgress <= 49 ? "current-status" : ""}">
         Preparing
       </div>
-      <div class="progress-label current-status">
+      <div class="progress-label 
+      ${deliveryProgress > 49 && deliveryProgress <= 90 ? "current-status" : ""}">
         Shipped
       </div>
-      <div class="progress-label">
+      <div class="progress-label 
+      ${deliveryProgress === 100 ? "current-status" : ""}">
         Delivered
       </div>
     </div>
     <div class="progress-bar-container">
-      <div class="progress-bar"></div>
+      <div class="progress-bar" style="width: ${deliveryProgress}%;"></div>
     </div>
   `;
 
