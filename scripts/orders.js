@@ -122,4 +122,6 @@ async function loadPage () {
   
 }
 
+document.querySelector(".js-cart-quantity").innerHTML = cart.calculateCartQuantity();
+
 loadPage();
