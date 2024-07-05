@@ -8,6 +8,7 @@ import {
 } from "../../data/deliveryOptions.js";
 import { renderPaymentSummary } from "./paymentSummary.js";
 import { renderCheckoutHeader } from "./checkoutHeader.js";
+import { addOrder } from "../../data/orders.js";
 
 export function renderOrderSummary() {
   let cartSummaryHTML = "";
@@ -69,6 +70,11 @@ export function renderOrderSummary() {
               Delete
             </span>
           </div>
+
+          <button class="button-primary buy-button js-buy-button"
+          data-product-id="${matchingProduct.id}">
+            Buy
+          </button>
         </div>
 
         <div class="delivery-options">
@@ -187,6 +193,32 @@ export function renderOrderSummary() {
       cart.updateDeliveryOption(productId, deliveryOptionId);
       renderOrderSummary();
       renderPaymentSummary();
+    });
+  });
+
+  document.querySelectorAll(".js-buy-button").forEach((button) => {
+    button.addEventListener("click", async () => {
+      const productId = button.dataset.productId;
+      const orderedProduct = [];
+      const productDetails = cart.findItem(productId);
+      orderedProduct.push(productDetails);
+
+      console.log(orderedProduct);
+      
+      const response = await fetch("https://supersimplebackend.dev/orders", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          cart: orderedProduct,
+        }),
+      });
+
+      const order = await response.json();
+      addOrder(order);
+
+      window.open("orders.html");
     });
   });
 }

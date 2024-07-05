@@ -111,6 +111,18 @@ export class Cart {
     this.saveToStorage();
   }
 
+  findItem(productId) {
+    let matchingItem;
+
+    cart.cartItems.forEach((item) => {
+      if (item.productId = productId) {
+        matchingItem = item;
+      }
+    });
+
+    return matchingItem;
+  }
+
   resetCart() {
     this.cartItems = [];
     this.saveToStorage();
