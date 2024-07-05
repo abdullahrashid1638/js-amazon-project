@@ -112,15 +112,7 @@ export class Cart {
   }
 
   findItem(productId) {
-    let matchingItem;
-
-    cart.cartItems.forEach((item) => {
-      if (item.productId = productId) {
-        matchingItem = item;
-      }
-    });
-
-    return matchingItem;
+    return this.cartItems.find(item => item.productId === productId);
   }
 
   resetCart() {

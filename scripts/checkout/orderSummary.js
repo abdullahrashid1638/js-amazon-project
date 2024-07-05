@@ -218,6 +218,8 @@ export function renderOrderSummary() {
       const order = await response.json();
       addOrder(order);
 
+      cart.removeFromCart(productId);
+
       window.open("orders.html");
     });
   });
