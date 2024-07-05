@@ -10,15 +10,21 @@ function renderProductsGrid () {
   const url = new URL(window.location.href);
   const search = url.searchParams.get("search");
 
-  let filterdProducts = products;
+  let filteredProducts = products;
 
   if (search) {
-    filterdProducts = products.filter((product) => {
-      return product.name.includes(search);
+    const lowerCaseSearch = search.toLowerCase(); // Convert search term to lowercase once
+    filteredProducts = products.filter((product) => {
+      const lowerCaseName = product.name.toLowerCase();
+      const lowerCaseKeywords = product.keywords.map(keyword => keyword.toLowerCase());
+      return (
+        lowerCaseName.includes(lowerCaseSearch) ||
+        lowerCaseKeywords.some(keyword => keyword.includes(lowerCaseSearch))
+      );
     });
   }
 
-  filterdProducts.forEach((product) => {
+  filteredProducts.forEach((product) => {
     productsHTML += `
       <div class="product-container">
         <div class="product-image-container">
@@ -142,12 +148,15 @@ function handleUrl () {
   window.open(url);
 }
 
-const searchButton = document.querySelector(".js-search-button");
+document.querySelector(".js-search-button")
+  .addEventListener("click", () => {
+    handleUrl();
+  });
 
-searchButton.addEventListener("click", () => {
-  handleUrl();
-});
 
-searchButton.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") handleUrl();
-});
+document.querySelector(".js-search-bar")
+  .addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      handleUrl();
+    }
+  });
