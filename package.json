@@ -1,0 +1,18 @@
+{
+  "name": "javascript-amazon-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "devDependencies": {
+    "vite": "^5.4.9"
+  },
+  "scripts": {
+    "dev": "vite amazon.html"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
